@@ -1,0 +1,8 @@
+starting 24h resume run at Sat May  2 10:00:14 AM NZST 2026
+  GPU: 1
+  num_envs: 2048
+  task: Unitree-Go2-Velocity-Lidar
+  resume from: 2026-05-02_00-39-44/model_7300.pt
+index, memory.used [MiB], memory.free [MiB]
+0, 9496 MiB, 6353 MiB
+1, 430 MiB, 15419 MiB

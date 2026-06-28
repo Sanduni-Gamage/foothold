@@ -1,0 +1,11 @@
+starting 24h foothold-planner RUN 2 (precision-bonus) at Mon Jun  8 03:23:57 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-FootholdPlanner
+  seed: 42
+  resume from: 2026-06-02_18-27-32/model_13700.pt  (Run 1 final-ish)
+  CHANGES vs Run 1: w_landed 0.5→5.0, landed_tolerance 0.08→0.04
+  (single-variable test; surface_aware_landing & planner reward weights unchanged)
+index, memory.used [MiB], memory.free [MiB]
+0, 2 MiB, 15847 MiB
+1, 2 MiB, 15847 MiB

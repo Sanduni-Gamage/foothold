@@ -1,0 +1,9 @@
+starting 24h foothold training at Tue May  5 09:37:00 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-Footholds
+  seed: 42
+  fresh init (no warm-start; obs shape change incompatible with --resume)
+index, memory.used [MiB], memory.free [MiB]
+0, 1998 MiB, 13851 MiB
+1, 2 MiB, 15847 MiB

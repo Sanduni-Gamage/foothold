@@ -1,0 +1,29 @@
+git: 'lfs' is not a git command. See 'git --help'.
+
+The most similar command is
+	log
+Obtaining file:///home/anyone/unitree_rl_lab/source/unitree_rl_lab
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Collecting argcomplete (from unitree_rl_lab==0.2.1)
+  Using cached argcomplete-3.6.3-py3-none-any.whl.metadata (16 kB)
+Using cached argcomplete-3.6.3-py3-none-any.whl (43 kB)
+Building wheels for collected packages: unitree_rl_lab
+  Building editable for unitree_rl_lab (pyproject.toml): started
+  Building editable for unitree_rl_lab (pyproject.toml): finished with status 'done'
+  Created wheel for unitree_rl_lab: filename=unitree_rl_lab-0.2.1-0.editable-py3-none-any.whl size=2961 sha256=f20959b26cc324acfdb9650f56542e09ff3646660689087b5c3ea32bb217c073
+  Stored in directory: /tmp/pip-ephem-wheel-cache-f2m48fek/wheels/38/8e/a2/a52117fc4432bd7cc57651bda9646c89cbc73b45a887fde754
+Successfully built unitree_rl_lab
+Installing collected packages: argcomplete, unitree_rl_lab
+
+Successfully installed argcomplete-3.6.3 unitree_rl_lab-0.2.1
+./unitree_rl_lab.sh: line 36: /home/anyone/miniforge3/envs/env_isaaclab/etc/conda/activate.d/setenv.sh: No such file or directory
+Defaulting to system-wide installation.
+usage: activate-global-python-argcomplete [-h] [-y] [--dest DEST] [--user]
+activate-global-python-argcomplete: error: path /usr/local/share/zsh/site-functions does not exist and could not be created: [Errno 13] Permission denied: '/usr/local/share/zsh'. Please run this command using sudo, or see --help for more options.

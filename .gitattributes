@@ -1,0 +1,7 @@
+# Git LFS — only the 4 log files over GitHub's 100 MB hard limit.
+# Tracked by exact path so the remaining (<100 MB) event files stay as normal
+# git blobs and total LFS usage (~0.5 GB) fits the free 1 GB quota.
+logs/footholds_train_20260505_213700/train.log filter=lfs diff=lfs merge=lfs -text
+logs/footholds_train_20260504_225046/train.log filter=lfs diff=lfs merge=lfs -text
+logs/rsl_rl/unitree_go2_footholds/2026-05-05_21-37-06/events.out.tfevents.1777973834.doubled.1088899.0 filter=lfs diff=lfs merge=lfs -text
+logs/rsl_rl/unitree_go2_footholds/2026-05-04_22-50-51/events.out.tfevents.1777891860.doubled.1041464.0 filter=lfs diff=lfs merge=lfs -text

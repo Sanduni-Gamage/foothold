@@ -1,0 +1,11 @@
+starting 24h foothold-planner RUN 3 (precision-bonus moderated) at Mon Jun  8 07:37:00 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-FootholdPlanner
+  seed: 42
+  resume from: 2026-06-02_18-27-32/model_13700.pt  (Run 1's last working ckpt)
+  CHANGES vs Run 2: w_landed 5.0→1.5  (tol stays at 0.04)
+  CHANGES vs Run 1: w_landed 0.5→1.5, tol 0.08→0.04
+index, memory.used [MiB], memory.free [MiB]
+0, 2 MiB, 15847 MiB
+1, 2 MiB, 15847 MiB

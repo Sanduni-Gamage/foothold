@@ -1,0 +1,9 @@
+starting 24h trapezoidal-bumps training at Thu May  7 11:07:42 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-Velocity (terrain swapped to TRAPEZOIDAL_BUMPS_CFG)
+  warm-start: 2026-05-03_18-37-15/model_25600.pt (rough-terrain stage-2)
+  bumps: 45-deg slopes, height 5-15cm, flat low/top 30cm each
+index, memory.used [MiB], memory.free [MiB]
+0, 1998 MiB, 13851 MiB
+1, 2 MiB, 15847 MiB

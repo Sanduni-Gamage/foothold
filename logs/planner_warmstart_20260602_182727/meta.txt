@@ -1,0 +1,12 @@
+starting 24h foothold-planner WARM-START training at Tue Jun  2 06:27:27 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-FootholdPlanner
+  seed: 42
+  warm-start: warmstart_surface_3b_flat35_16800/model_planner_warmstart.pt
+  action dim: 12 joint + 8 foot-target = 20
+  obs dim:    260 (policy = 244 surface + 8 last_action growth + 8 foot_targets), 275 (critic = 259+16)
+  surface_labels SLOPE_UNSAFE_DEG: 35.0 (widened, inherited from surface task)
+index, memory.used [MiB], memory.free [MiB]
+0, 2 MiB, 15847 MiB
+1, 2 MiB, 15847 MiB

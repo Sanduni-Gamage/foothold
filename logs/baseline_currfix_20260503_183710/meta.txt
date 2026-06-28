@@ -1,0 +1,11 @@
+starting 24h resume run with curriculum fix at Sun May  3 06:37:10 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-Velocity
+  resume from: 2026-05-03_14-58-34/model_13400.pt
+  stage 2: terrain swapped to ROUGH_TERRAINS_CFG (was COBBLESTONE flat-only)
+  stage 2: foot_clearance_reward added (target_height=0.08m, weight=1.0)
+  curriculum fix: lin_vel/ang_vel _cmd_levels global-step gate replaced with per-env rate limiter
+index, memory.used [MiB], memory.free [MiB]
+0, 9474 MiB, 6375 MiB
+1, 2 MiB, 15847 MiB

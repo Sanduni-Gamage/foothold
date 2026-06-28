@@ -1,0 +1,302 @@
+Loading user config located at: '/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/data/Kit/Isaac-Sim/5.1/user.config.json'
+[Info] [carb] Logging to file: /home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/logs/Kit/Isaac-Sim/5.1/kit_20260507_065702.log
+2026-05-06T18:57:02Z [71ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-05-06T18:57:02Z [235ms] [Warning] [omni.platforminfo.plugin] failed to open the default display.  Can't verify X Server version.
+2026-05-06T18:57:02Z [384ms] [Warning] [carb] Acquiring non optional plugin interface which is not listed as dependency: [omni::physx::IPhysxBenchmarks v1.0] (plugin: <default plugin>), by client: omni.physics.physx.plugin. Add it to CARB_PLUGIN_IMPL_DEPS() macro of a client.
+2026-05-06T18:57:02Z [391ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+2026-05-06T18:57:04Z [2,538ms] [Warning] [carb.cudainterop.plugin] CUDA_VISIBLE_DEVICES environment variable is set.
+2026-05-06T18:57:04Z [2,538ms] [Warning] [carb.cudainterop.plugin] Note CUDA device enumeration and Omniverse device enumeration are different.
+2026-05-06T18:57:04Z [2,538ms] [Warning] [carb.cudainterop.plugin] Setting CUDA_VISIBLE_DEVICES can lead to undesired behavior or crashes.
+2026-05-06T18:57:05Z [3,012ms] [Warning] [gpu.foundation.plugin] Skipping NVIDIA GPU due CUDA being in bad state: NVIDIA GeForce RTX 5060 Ti
+2026-05-06T18:57:05Z [3,012ms] [Warning] [gpu.foundation.plugin] Please restart your system if CUDA is known to work in your system.
+2026-05-06T18:57:05Z [3,013ms] [Warning] [gpu.foundation.plugin] Skipping NVIDIA GPU due CUDA being in bad state: NVIDIA GeForce RTX 5060 Ti
+2026-05-06T18:57:05Z [3,013ms] [Warning] [gpu.foundation.plugin] Please restart your system if CUDA is known to work in your system.
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 580.126.09    | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 5060 Ti       |        |     | 16557   MB | 10de      | 0          |
+|     |                                  |        |     |            | 2d04      | 2b74a472.. |
+|     |                                  |        |     |            | 1         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | NVIDIA GeForce RTX 5060 Ti       | Yes: 0 |     | 16557   MB | 10de      | 0          |
+|     |                                  |        |     |            | 2d04      | 7c6496a1.. |
+|     |                                  |        |     |            | 5         |            |
+|=============================================================================================|
+| OS: 24.04.3 LTS (Noble Numbat) ubuntu, Version: 24.04.3, Kernel: 6.14.0-37-generic
+| Processor: Intel(R) Core(TM) i5-14400F
+| Bare Metal Cores: 10 | Bare Metal Logical Cores: 20
+| Available Cores:  16 
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 64136 | Free Memory: 36078
+| Total Page/Swap (MB): 8191 | Free Page/Swap: 3218
+|---------------------------------------------------------------------------------------------|
+2026-05-06T18:57:05Z [3,248ms] [Warning] [gpu.foundation.plugin] PCIe link width current (4) and maximum (16) for device 1 don't match.
+2026-05-06T18:57:05Z [3,248ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-05-06T18:57:05Z [3,248ms] [Warning] [gpu.foundation.plugin] Detected IOMMU is enabled. Running CUDA peer-to-peer bandwidth and latency validation.
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-Go2-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-Go2-Velocity-Lidar already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-Go2-Velocity-Lidar-FlatPlay already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-Go2-Footholds already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-H1-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Dance-102 already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Gangnanm-Style already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: /home/anyone/IsaacLab/apps/isaaclab.python.headless.kit
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.robots.go2.velocity_footholds_env_cfg:RobotFootholdEnvCfg
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg
+[INFO] Logging experiment in directory: /home/anyone/projects/doga/logs/rsl_rl/unitree_go2_footholds
+Exact experiment name requested from command line: 2026-05-07_06-57-07
+
+[36m======================================================================================[0m
+[36m[1m[INFO][IsaacLab]: Logging to file: /tmp/isaaclab/logs/isaaclab_2026-05-07_06-57-07.log[0m
+[36m======================================================================================[0m
+
+[33m06:57:07 [simulation_context.py] WARNING: The `enable_external_forces_every_iteration` parameter in the PhysxCfg is set to False. If you are experiencing noisy velocities, consider enabling this flag. You may need to slightly increase the number of velocity iterations (setting it to 1 or 2 rather than 0), together with this flag, to improve the accuracy of velocity updates.[0m
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/rsl_rl/utils/utils.py:245: UserWarning: The observation configuration dictionary 'obs_groups' must contain the 'policy' key. As an observation group with the name 'policy' was found, this is assumed to be the observation set. Consider adding the 'policy' key to the 'obs_groups' dictionary for clarity. This behavior will be removed in a future version.
+  warnings.warn(
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/rsl_rl/utils/utils.py:283: UserWarning: The observation configuration dictionary 'obs_groups' must contain the 'critic' key. As an observation group with the name 'critic' was found, this is assumed to be the observation set. Consider adding the 'critic' key to the 'obs_groups' dictionary for clarity. This behavior will be removed in a future version.
+  warnings.warn(
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO] Generating terrains based on curriculum took : 1.565002 seconds
+[INFO]: Time taken for scene creation : 2.322626 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 32
+	Environment spacing   : 2.5
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/ground']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 1.779169 seconds
+[INFO] Command Manager:  <CommandManager> contains 1 active terms.
++------------------------------------------------+
+|              Active Command Terms              |
++-------+---------------+------------------------+
+| Index | Name          |          Type          |
++-------+---------------+------------------------+
+|   0   | base_velocity | UniformVelocityCommand |
++-------+---------------+------------------------+
+
+[INFO] Event Manager:  <EventManager> contains 3 active terms.
++--------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++----------+---------------------------+
+|  Index   | Name                      |
++----------+---------------------------+
+|    0     | physics_material          |
+|    1     | add_base_mass             |
++----------+---------------------------+
++---------------------------------------+
+|  Active Event Terms in Mode: 'reset'  |
++--------+------------------------------+
+| Index  | Name                         |
++--------+------------------------------+
+|   0    | base_external_force_torque   |
+|   1    | reset_base                   |
+|   2    | reset_robot_joints           |
+|   3    | reset_footholds              |
++--------+------------------------------+
++----------------------------------------------+
+|    Active Event Terms in Mode: 'interval'    |
++-------+------------+-------------------------+
+| Index | Name       | Interval time range (s) |
++-------+------------+-------------------------+
+|   0   | push_robot |       (5.0, 10.0)       |
++-------+------------+-------------------------+
+
+[INFO] Recorder Manager:  <RecorderManager> contains 0 active terms.
++---------------------+
+| Active Recorder Terms |
++-----------+---------+
+|   Index   | Name    |
++-----------+---------+
++-----------+---------+
+
+[INFO] Action Manager:  <ActionManager> contains 1 active terms.
++-----------------------------------------+
+|     Active Action Terms (shape: 12)     |
++-------+---------------------+-----------+
+| Index | Name                | Dimension |
++-------+---------------------+-----------+
+|   0   | JointPositionAction |        12 |
++-------+---------------------+-----------+
+
+[INFO] Observation Manager: <ObservationManager> contains 2 groups.
++---------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (65,)) |
++-----------+---------------------------------+-----------+
+|   Index   | Name                            |   Shape   |
++-----------+---------------------------------+-----------+
+|     0     | base_ang_vel                    |    (3,)   |
+|     1     | projected_gravity               |    (3,)   |
+|     2     | velocity_commands               |    (3,)   |
+|     3     | joint_pos_rel                   |   (12,)   |
+|     4     | joint_vel_rel                   |   (12,)   |
+|     5     | last_action                     |   (12,)   |
+|     6     | nearest_footholds               |    (8,)   |
+|     7     | foot_positions                  |   (12,)   |
++-----------+---------------------------------+-----------+
++-----------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (80,)) |
++----------+-------------------------------------+----------+
+|  Index   | Name                                |  Shape   |
++----------+-------------------------------------+----------+
+|    0     | base_lin_vel                        |   (3,)   |
+|    1     | base_ang_vel                        |   (3,)   |
+|    2     | projected_gravity                   |   (3,)   |
+|    3     | velocity_commands                   |   (3,)   |
+|    4     | joint_pos_rel                       |  (12,)   |
+|    5     | joint_vel_rel                       |  (12,)   |
+|    6     | joint_effort                        |  (12,)   |
+|    7     | last_action                         |  (12,)   |
+|    8     | nearest_footholds_clean             |   (8,)   |
+|    9     | foot_positions_clean                |  (12,)   |
++----------+-------------------------------------+----------+
+
+[INFO] Termination Manager:  <TerminationManager> contains 3 active terms.
++------------------------------------+
+|      Active Termination Terms      |
++-------+-----------------+----------+
+| Index | Name            | Time Out |
++-------+-----------------+----------+
+|   0   | time_out        |   True   |
+|   1   | base_contact    |  False   |
+|   2   | bad_orientation |  False   |
++-------+-----------------+----------+
+
+[INFO] Reward Manager:  <RewardManager> contains 20 active terms.
++------------------------------------------+
+|           Active Reward Terms            |
++-------+-----------------------+----------+
+| Index | Name                  |   Weight |
++-------+-----------------------+----------+
+|   0   | track_lin_vel_xy      |      1.5 |
+|   1   | track_ang_vel_z       |     0.75 |
+|   2   | base_linear_velocity  |     -2.0 |
+|   3   | base_angular_velocity |    -0.05 |
+|   4   | joint_vel             |   -0.001 |
+|   5   | joint_acc             | -2.5e-07 |
+|   6   | joint_torques         |  -0.0002 |
+|   7   | action_rate           |     -0.1 |
+|   8   | dof_pos_limits        |    -10.0 |
+|   9   | energy                |   -2e-05 |
+|   10  | flat_orientation_l2   |     -2.5 |
+|   11  | joint_pos             |     -0.7 |
+|   12  | feet_air_time         |      0.1 |
+|   13  | air_time_variance     |     -1.0 |
+|   14  | feet_slide            |     -0.1 |
+|   15  | feet_clearance        |      1.0 |
+|   16  | undesired_contacts    |       -1 |
+|   17  | foothold_landing      |      9.4 |
+|   18  | foothold_progress     |      0.3 |
+|   19  | off_foothold_landing  |      0.3 |
++-------+-----------------------+----------+
+
+[INFO] Curriculum Manager:  <CurriculumManager> contains 2 active terms.
++----------------------------+
+|  Active Curriculum Terms   |
++-------+--------------------+
+| Index | Name               |
++-------+--------------------+
+|   0   | terrain_levels     |
+|   1   | lin_vel_cmd_levels |
++-------+--------------------+
+
+[INFO]: Completed setting up the environment...
+--------------------------------------------------------------------------------
+Resolved observation sets: 
+	 policy :  ['policy']
+	 critic :  ['critic']
+--------------------------------------------------------------------------------
+Actor MLP: MLP(
+  (0): Linear(in_features=65, out_features=512, bias=True)
+  (1): ELU(alpha=1.0)
+  (2): Linear(in_features=512, out_features=256, bias=True)
+  (3): ELU(alpha=1.0)
+  (4): Linear(in_features=256, out_features=128, bias=True)
+  (5): ELU(alpha=1.0)
+  (6): Linear(in_features=128, out_features=12, bias=True)
+)
+Critic MLP: MLP(
+  (0): Linear(in_features=80, out_features=512, bias=True)
+  (1): ELU(alpha=1.0)
+  (2): Linear(in_features=512, out_features=256, bias=True)
+  (3): ELU(alpha=1.0)
+  (4): Linear(in_features=256, out_features=128, bias=True)
+  (5): ELU(alpha=1.0)
+  (6): Linear(in_features=128, out_features=1, bias=True)
+)
+################################################################################
+                        [1m Learning iteration 0/1 [0m                        
+
+                       Computation: 527 steps/s (collection: 1.282s, learning 0.175s)
+             Mean action noise std: 1.00
+          Mean value_function loss: 0.4544
+               Mean surrogate loss: 0.0130
+                 Mean entropy loss: 17.0181
+                       Mean reward: -1.50
+               Mean episode length: 17.00
+   Episode_Reward/track_lin_vel_xy: 0.0078
+    Episode_Reward/track_ang_vel_z: 0.0016
+Episode_Reward/base_linear_velocity: -0.0069
+Episode_Reward/base_angular_velocity: -0.0039
+          Episode_Reward/joint_vel: -0.0021
+          Episode_Reward/joint_acc: -0.0009
+      Episode_Reward/joint_torques: -0.0009
+        Episode_Reward/action_rate: -0.0144
+     Episode_Reward/dof_pos_limits: 0.0000
+             Episode_Reward/energy: -0.0000
+Episode_Reward/flat_orientation_l2: -0.0002
+          Episode_Reward/joint_pos: -0.0037
+      Episode_Reward/feet_air_time: 0.0000
+  Episode_Reward/air_time_variance: -0.0000
+         Episode_Reward/feet_slide: -0.0006
+     Episode_Reward/feet_clearance: 0.0000
+ Episode_Reward/undesired_contacts: -0.0003
+   Episode_Reward/foothold_landing: 0.0000
+  Episode_Reward/foothold_progress: -0.0003
+Episode_Reward/off_foothold_landing: -0.0002
+         Curriculum/terrain_levels: 1.5208
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0012
+Metrics/base_velocity/error_vel_yaw: 0.0061
+      Episode_Termination/time_out: 0.0104
+  Episode_Termination/base_contact: 0.0000
+Episode_Termination/bad_orientation: 0.0000
+--------------------------------------------------------------------------------
+                   Total timesteps: 768
+                    Iteration time: 1.46s
+                      Time elapsed: 00:00:01
+                               ETA: 00:00:01
+
+Could not find git repository in /home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/rsl_rl/__init__.py. Skipping.
+Storing git diff for 'unitree_rl_lab' in: /home/anyone/projects/doga/logs/rsl_rl/unitree_go2_footholds/2026-05-07_06-57-07/git/unitree_rl_lab.diff
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 384.95 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   2.15 
+
+   CPU     0 
+     0   2.13 
+2026-05-06T18:57:12Z [10,610ms] [Warning] [omni.physx.fabric.plugin] FabricManager::initializePointInstancer mismatched prototypes on point instancer: /Visuals/Command/velocity_goal.
+2026-05-06T18:57:12Z [10,610ms] [Warning] [omni.physx.fabric.plugin] FabricManager::initializePointInstancer mismatched prototypes on point instancer: /Visuals/Command/velocity_current.

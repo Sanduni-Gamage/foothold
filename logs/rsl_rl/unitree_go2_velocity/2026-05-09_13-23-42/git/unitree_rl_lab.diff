@@ -1,0 +1,573 @@
+--- git status ---
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   scripts/rsl_rl/play.py
+	modified:   source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+	modified:   source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py
+	modified:   source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/observations.py
+	modified:   source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/rewards.py
+	modified:   source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__init__.py
+	modified:   source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/foothold_state.py
+	source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_footholds_env_cfg.py
+	source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_lidar_env_cfg.py
+	source/unitree_rl_lab/unitree_rl_lab/terrains/
+
+no changes added to commit (use "git add" and/or "git commit -a") 
+
+
+--- git diff ---
+diff --git a/scripts/rsl_rl/play.py b/scripts/rsl_rl/play.py
+index fd5ff85..05d33c7 100644
+--- a/scripts/rsl_rl/play.py
++++ b/scripts/rsl_rl/play.py
+@@ -56,7 +56,11 @@ import isaaclab_tasks  # noqa: F401
+ from isaaclab.envs import DirectMARLEnv, multi_agent_to_single_agent
+ from isaaclab.utils.assets import retrieve_file_path
+ from isaaclab.utils.dict import print_dict
+-from isaaclab.utils.pretrained_checkpoint import get_published_pretrained_checkpoint
++try:
++    from isaaclab.utils.pretrained_checkpoint import get_published_pretrained_checkpoint
++except ImportError:
++    def get_published_pretrained_checkpoint(*_args, **_kwargs):
++        return None
+ from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlVecEnvWrapper, export_policy_as_jit, export_policy_as_onnx
+ from isaaclab_tasks.utils import get_checkpoint_path
+ 
+@@ -99,6 +103,11 @@ def main():
+     if isinstance(env.unwrapped, DirectMARLEnv):
+         env = multi_agent_to_single_agent(env)
+ 
++    # opt into foothold debug markers (yellow = unclaimed, green = claimed)
++    # for any Foothold variant of the Go2 task. Harmless on other tasks.
++    if "Foothold" in args_cli.task:
++        env.unwrapped._foothold_show_markers = True
++
+     # wrap for video recording
+     if args_cli.video:
+         video_kwargs = {
+diff --git a/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py b/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+index e78413a..e721070 100644
+--- a/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
++++ b/source/unitree_rl_lab/unitree_rl_lab/assets/robots/unitree.py
+@@ -17,8 +17,8 @@ from isaaclab.utils import configclass
+ 
+ from unitree_rl_lab.assets.robots import unitree_actuators
+ 
+-UNITREE_MODEL_DIR = "path/to/unitree_model"  # Replace with the actual path to your unitree_model directory
+-UNITREE_ROS_DIR = "path/to/unitree_ros"  # Replace with the actual path to your unitree_ros package
++UNITREE_MODEL_DIR = os.environ.get("UNITREE_MODEL_DIR", os.path.expanduser("~/unitree_model"))
++UNITREE_ROS_DIR = os.environ.get("UNITREE_ROS_DIR", os.path.expanduser("~/unitree_ros"))
+ 
+ 
+ @configclass
+diff --git a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py
+index 05b3e51..d9f67fb 100644
+--- a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py
++++ b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/curriculums.py
+@@ -13,14 +13,34 @@ def lin_vel_cmd_levels(
+     env_ids: Sequence[int],
+     reward_term_name: str = "track_lin_vel_xy",
+ ) -> torch.Tensor:
++    """Velocity-command curriculum.
++
++    Called from `_reset_idx` AFTER curriculum_manager.compute() but BEFORE
++    reward_manager.reset(env_ids) zeroes the sums (verified in
++    isaaclab.envs.manager_based_rl_env._reset_idx, lines 356 & 375). So
++    `_episode_sums[env_ids]` here contains the just-completed episode
++    totals.
++
++    Bug fix vs. upstream: the original gate `common_step_counter %
++    max_episode_length == 0` rate-limited advancement to global step
++    boundaries, which empirically prevented the range from ever expanding.
++    Replaced with a per-env-stored last-advance-step rate limiter.
++    """
+     command_term = env.command_manager.get_term("base_velocity")
+     ranges = command_term.cfg.ranges
+     limit_ranges = command_term.cfg.limit_ranges
+ 
++    if len(env_ids) == 0:
++        return torch.tensor(ranges.lin_vel_x[1], device=env.device)
++
+     reward_term = env.reward_manager.get_term_cfg(reward_term_name)
+     reward = torch.mean(env.reward_manager._episode_sums[reward_term_name][env_ids]) / env.max_episode_length_s
+ 
+-    if env.common_step_counter % env.max_episode_length == 0:
++    # rate-limit: advance at most once per max_episode_length global steps
++    last_attr = "_lin_vel_cmd_levels_last_step"
++    if not hasattr(env, last_attr):
++        setattr(env, last_attr, -10**9)
++    if env.common_step_counter - getattr(env, last_attr) >= env.max_episode_length:
+         if reward > reward_term.weight * 0.8:
+             delta_command = torch.tensor([-0.1, 0.1], device=env.device)
+             ranges.lin_vel_x = torch.clamp(
+@@ -33,6 +53,7 @@ def lin_vel_cmd_levels(
+                 limit_ranges.lin_vel_y[0],
+                 limit_ranges.lin_vel_y[1],
+             ).tolist()
++            setattr(env, last_attr, env.common_step_counter)
+ 
+     return torch.tensor(ranges.lin_vel_x[1], device=env.device)
+ 
+@@ -42,14 +63,25 @@ def ang_vel_cmd_levels(
+     env_ids: Sequence[int],
+     reward_term_name: str = "track_ang_vel_z",
+ ) -> torch.Tensor:
++    """Angular-velocity-command curriculum.
++
++    Same fix as `lin_vel_cmd_levels` — replaces the broken global-step gate
++    with a per-env last-advance-step rate limiter.
++    """
+     command_term = env.command_manager.get_term("base_velocity")
+     ranges = command_term.cfg.ranges
+     limit_ranges = command_term.cfg.limit_ranges
+ 
++    if len(env_ids) == 0:
++        return torch.tensor(ranges.ang_vel_z[1], device=env.device)
++
+     reward_term = env.reward_manager.get_term_cfg(reward_term_name)
+     reward = torch.mean(env.reward_manager._episode_sums[reward_term_name][env_ids]) / env.max_episode_length_s
+ 
+-    if env.common_step_counter % env.max_episode_length == 0:
++    last_attr = "_ang_vel_cmd_levels_last_step"
++    if not hasattr(env, last_attr):
++        setattr(env, last_attr, -10**9)
++    if env.common_step_counter - getattr(env, last_attr) >= env.max_episode_length:
+         if reward > reward_term.weight * 0.8:
+             delta_command = torch.tensor([-0.1, 0.1], device=env.device)
+             ranges.ang_vel_z = torch.clamp(
+@@ -57,5 +89,6 @@ def ang_vel_cmd_levels(
+                 limit_ranges.ang_vel_z[0],
+                 limit_ranges.ang_vel_z[1],
+             ).tolist()
++            setattr(env, last_attr, env.common_step_counter)
+ 
+     return torch.tensor(ranges.ang_vel_z[1], device=env.device)
+diff --git a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/observations.py b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/observations.py
+index b1df0d4..e84c622 100644
+--- a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/observations.py
++++ b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/observations.py
+@@ -3,6 +3,12 @@ from __future__ import annotations
+ import torch
+ from typing import TYPE_CHECKING
+ 
++from isaaclab.managers import SceneEntityCfg
++from isaaclab.sensors import RayCaster
++from isaaclab.utils.math import quat_apply_inverse
++
++from unitree_rl_lab.tasks.locomotion.mdp.foothold_state import _ensure_state
++
+ if TYPE_CHECKING:
+     from isaaclab.envs import ManagerBasedRLEnv
+ 
+@@ -17,3 +23,110 @@ def gait_phase(env: ManagerBasedRLEnv, period: float) -> torch.Tensor:
+     phase[:, 0] = torch.sin(global_phase * torch.pi * 2.0)
+     phase[:, 1] = torch.cos(global_phase * torch.pi * 2.0)
+     return phase
++
++
++def lidar_distances(
++    env: ManagerBasedRLEnv,
++    sensor_cfg: SceneEntityCfg,
++    max_range: float = 30.0,
++    min_range: float = 0.05,
++    noise_std: float = 0.02,
++    dropout_prob: float = 0.10,
++    log_scale: bool = True,
++) -> torch.Tensor:
++    """Per-ray distances from a RayCaster lidar, with realism augmentations.
++
++    Models the Unitree L1 4D LiDAR sensor characteristics from the L1 v1.1 user
++    manual:
++      - measurement accuracy ±2.0 cm  → Gaussian noise with std `noise_std`
++      - reflectance-dependent dropouts → per-ray Bernoulli dropout, dropped rays
++        clamped to `max_range` (modeling "no return → max")
++      - 0.05 m near blind zone, 30 m max  → clip output to (min_range, max_range)
++
++    Returns a (num_envs, num_rays) tensor of distances. With ``log_scale=True``
++    the output is ``log1p(distance)`` to compress the dynamic range for the
++    policy MLP. The privileged critic obs should call this with ``noise_std=0,
++    dropout_prob=0`` for clean ground-truth distances.
++    """
++    sensor: RayCaster = env.scene.sensors[sensor_cfg.name]
++    # ray_hits_w: (E, R, 3) world-frame hit points; pos_w: (E, 3) sensor pos
++    sensor_pos = sensor.data.pos_w.unsqueeze(1)            # (E, 1, 3)
++    distances = torch.linalg.vector_norm(sensor.data.ray_hits_w - sensor_pos, dim=-1)  # (E, R)
++
++    # rays that didn't hit anything return inf or huge values; treat as max_range
++    distances = torch.where(torch.isfinite(distances), distances, torch.full_like(distances, max_range))
++
++    if noise_std > 0.0:
++        distances = distances + noise_std * torch.randn_like(distances)
++    if dropout_prob > 0.0:
++        keep = torch.bernoulli(torch.full_like(distances, 1.0 - dropout_prob)).bool()
++        distances = torch.where(keep, distances, torch.full_like(distances, max_range))
++
++    distances = distances.clamp(min=min_range, max=max_range)
++
++    if log_scale:
++        distances = torch.log1p(distances)
++    return distances
++
++
++def nearest_unclaimed_footholds(
++    env: ManagerBasedRLEnv,
++    asset_cfg: SceneEntityCfg = SceneEntityCfg("robot"),
++    k: int = 4,
++) -> torch.Tensor:
++    """K nearest unclaimed footholds, expressed in robot xy frame, sorted by
++    distance from base. Returns shape (E, k*2). Permutation-invariant in foot
++    index — provides the robot with a SET view of available footholds.
++
++    For envs with fewer than `k` unclaimed footholds, missing slots are
++    filled with the SAME max-range placeholder so the policy can detect them.
++    """
++    _ensure_state(env)
++    asset = env.scene[asset_cfg.name]
++    base_pos_w = asset.data.root_pos_w[:, :2]                           # (E, 2)
++    base_quat_w = asset.data.root_quat_w                                # (E, 4)
++
++    foothold_xy = env._foothold_positions                                # (E, S, 2)
++    invalid = env._foothold_claimed | (~env._foothold_active)             # (E, S)
++
++    # Distance from base in world frame
++    rel_xy = foothold_xy - base_pos_w.unsqueeze(1)                        # (E, S, 2)
++    dist = torch.linalg.vector_norm(rel_xy, dim=-1)                       # (E, S)
++    dist = torch.where(invalid, torch.full_like(dist, 1e6), dist)
++
++    # k-nearest by distance
++    k_actual = min(k, dist.shape[1])
++    _, top_idx = dist.topk(k_actual, dim=-1, largest=False)                # (E, k)
++    e_idx = torch.arange(env.num_envs, device=env.device).unsqueeze(1).expand(-1, k_actual)
++    nearest_xy = rel_xy[e_idx, top_idx]                                    # (E, k, 2) world-frame relative
++
++    # Transform to robot frame: rotate by inverse(base_quat). For 2-D xy we
++    # promote to 3-D, rotate, take xy back.
++    nearest_xy3 = torch.cat([nearest_xy, torch.zeros_like(nearest_xy[..., :1])], dim=-1)  # (E, k, 3)
++    nearest_rf = torch.zeros_like(nearest_xy3)
++    for i in range(k_actual):
++        nearest_rf[:, i, :] = quat_apply_inverse(base_quat_w, nearest_xy3[:, i, :])
++
++    # Cap at MAX_RANGE — invalid slots get clamped so they don't dominate
++    out_xy = nearest_rf[..., :2].clamp(min=-15.0, max=15.0)                # (E, k, 2)
++
++    return out_xy.reshape(env.num_envs, -1)                                # (E, k*2)
++
++
++def foot_positions_robot_frame(
++    env: ManagerBasedRLEnv,
++    asset_cfg: SceneEntityCfg,
++) -> torch.Tensor:
++    """Foot xyz positions in robot frame, flattened to (E, 4*3=12).
++
++    asset_cfg.body_ids must be the four foot body indices.
++    """
++    asset = env.scene[asset_cfg.name]
++    foot_pos_w = asset.data.body_pos_w[:, asset_cfg.body_ids, :]           # (E, 4, 3)
++    base_pos_w = asset.data.root_pos_w.unsqueeze(1)                        # (E, 1, 3)
++    base_quat_w = asset.data.root_quat_w                                   # (E, 4)
++    rel = foot_pos_w - base_pos_w                                          # (E, 4, 3)
++    out = torch.zeros_like(rel)
++    for i in range(rel.shape[1]):
++        out[:, i, :] = quat_apply_inverse(base_quat_w, rel[:, i, :])
++    return out.reshape(env.num_envs, -1)
+diff --git a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/rewards.py b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/rewards.py
+index 95ddd8a..acef47f 100644
+--- a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/rewards.py
++++ b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/mdp/rewards.py
+@@ -223,3 +223,169 @@ def joint_mirror(env: ManagerBasedRLEnv, asset_cfg: SceneEntityCfg, mirror_joint
+         )
+     reward *= 1 / len(mirror_joints) if len(mirror_joints) > 0 else 0
+     return reward
++
++
++# ----------------------------------------------------------------------------
++# Foothold-targeting rewards (Stage-3 Unitree-Go2-Footholds task)
++# ----------------------------------------------------------------------------
++
++def foothold_landing(
++    env: "ManagerBasedRLEnv",
++    sensor_cfg: SceneEntityCfg,
++    asset_cfg: SceneEntityCfg,
++    tolerance: float = 0.10,
++    sigma: float = 0.05,
++    contact_threshold: float = 5.0,
++) -> torch.Tensor:
++    """Sparse Gaussian reward when ANY foot lands within `tolerance` of an
++    unclaimed foothold (permutation-invariant). On contact, the foothold is
++    claimed (state mutated) so subsequent steps see one fewer.
++
++    Implementation note: this term ALSO drives `foothold_state.update_claims`,
++    so it MUST run first in the RewardsCfg ordering — other foothold rewards
++    depend on the just-claimed flag being current.
++    """
++    from unitree_rl_lab.tasks.locomotion.mdp.foothold_state import update_claims
++
++    update_claims(env, sensor_cfg, asset_cfg, tolerance=tolerance, contact_threshold=contact_threshold)
++
++    # Reward = exp(-d^2/sigma^2) summed over stones just claimed in this step
++    if not env._foothold_just_claimed.any():
++        return torch.zeros(env.num_envs, device=env.device)
++
++    # Recompute the distance on the just-claimed stones — we know they were
++    # claimed this step, so distance < tolerance. Use a constant near-1 reward
++    # for the claim event (Gaussian with d≈0 ≈ 1).
++    return env._foothold_just_claimed.float().sum(dim=-1)  # (E,)
++
++
++def foothold_progress(
++    env: "ManagerBasedRLEnv",
++    asset_cfg: SceneEntityCfg,
++    contact_sensor_cfg: SceneEntityCfg,
++) -> torch.Tensor:
++    """Dense reward: for each SWING-PHASE foot, reward its xy velocity component
++    pointing toward its nearest unclaimed foothold.
++
++    Swing phase = currently NOT in contact (last-step contact flag false).
++    Provides a smooth gradient guiding feet toward stones.
++    """
++    asset = env.scene[asset_cfg.name]
++    foot_pos_w = asset.data.body_pos_w[:, asset_cfg.body_ids, :2]        # (E, F, 2)
++    foot_vel_w = asset.data.body_lin_vel_w[:, asset_cfg.body_ids, :2]    # (E, F, 2)
++
++    foothold_xy = env._foothold_positions                                  # (E, S, 2)
++    invalid = env._foothold_claimed | (~env._foothold_active)               # (E, S)
++
++    # nearest unclaimed per foot
++    diff = foot_pos_w.unsqueeze(2) - foothold_xy.unsqueeze(1)               # (E, F, S, 2)
++    dist = torch.linalg.vector_norm(diff, dim=-1)                           # (E, F, S)
++    dist = torch.where(invalid.unsqueeze(1), torch.full_like(dist, float("inf")), dist)
++    min_dist, nearest_idx = dist.min(dim=-1)                                # (E, F)
++
++    # If no unclaimed stones, return zero
++    valid_mask = (min_dist < float("inf"))                                  # (E, F)
++
++    # Direction from foot to nearest stone
++    e_idx = torch.arange(env.num_envs, device=env.device).unsqueeze(1).expand(-1, foot_pos_w.shape[1])
++    f_idx = torch.arange(foot_pos_w.shape[1], device=env.device).unsqueeze(0).expand(env.num_envs, -1)
++    nearest_pos = foothold_xy[e_idx, nearest_idx]                           # (E, F, 2)
++    direction = nearest_pos - foot_pos_w                                    # (E, F, 2)
++    direction = direction / (direction.norm(dim=-1, keepdim=True) + 1e-6)
++
++    # velocity component in direction of nearest stone
++    progress = (foot_vel_w * direction).sum(dim=-1)                         # (E, F)
++
++    # Mask: only swing-phase feet (last-step contact = False), and only valid
++    swing_mask = (~env._foothold_was_contact) & valid_mask                  # (E, F)
++    progress = progress * swing_mask.float()
++
++    return progress.sum(dim=-1)  # (E,)
++
++
++def off_foothold_landing(
++    env: "ManagerBasedRLEnv",
++    sensor_cfg: SceneEntityCfg,
++    asset_cfg: SceneEntityCfg,
++    tolerance: float = 0.15,
++    contact_threshold: float = 5.0,
++) -> torch.Tensor:
++    """Smooth penalty (non-positive) for swing→stance LANDING EVENTS that
++    land far from any foothold. Fires only on the per-step transition
++    (foot was in swing last step, is in stance now), NOT continuously on
++    every stance step.
++
++    Penalty is graded: `−max(0, dist_to_nearest − tolerance)` per landing
++    event. Smooth gradient avoids the binary-threshold pathology that broke
++    the v1 run (continuous-contact penalty was overwhelming all positive
++    rewards because no quadruped pose can place all 4 feet on 0.30m-spaced
++    stones simultaneously).
++
++    Reads `env._foothold_just_landed` published by `update_claims`, so this
++    MUST run AFTER `foothold_landing` in RewardsCfg ordering.
++    """
++    asset = env.scene[asset_cfg.name]
++    if not hasattr(env, "_foothold_just_landed"):
++        return torch.zeros(env.num_envs, device=env.device)
++    just_landed = env._foothold_just_landed                                  # (E, F)
++    if not just_landed.any():
++        return torch.zeros(env.num_envs, device=env.device)
++
++    foot_pos_w = asset.data.body_pos_w[:, asset_cfg.body_ids, :2]            # (E, F, 2)
++    foothold_xy = env._foothold_positions                                    # (E, S, 2)
++    diff = foot_pos_w.unsqueeze(2) - foothold_xy.unsqueeze(1)
++    dist = torch.linalg.vector_norm(diff, dim=-1)                            # (E, F, S)
++    dist = torch.where(env._foothold_active.unsqueeze(1), dist, torch.full_like(dist, float("inf")))
++    min_dist, _ = dist.min(dim=-1)                                           # (E, F)
++
++    # Smooth penalty: 0 inside tolerance, linear ramp outside
++    excess = (min_dist - tolerance).clamp(min=0.0)                           # (E, F)
++    excess = excess * just_landed.float()                                    # gate by event
++    return -excess.sum(dim=-1)  # (E,)
++
++
++def claim_advance(env: "ManagerBasedRLEnv") -> torch.Tensor:
++    """Bonus when total claimed-foothold count increases this step.
++
++    Provides ordering-pressure on top of `foothold_landing` so the policy
++    advances through the chain rather than camping near a single stone.
++    """
++    cur = env._foothold_claimed.sum(dim=-1).long()                          # (E,)
++    delta = (cur - env._foothold_claim_count_prev).clamp(min=0).float()
++    env._foothold_claim_count_prev = cur
++    return delta
++
++
++# ----------------------------------------------------------------------------
++# Foot-on-slope penalty (Stage-2.5: trapezoidal/pyramid foot-placement signal)
++# ----------------------------------------------------------------------------
++
++def feet_on_slope_penalty(
++    env: "ManagerBasedRLEnv",
++    sensor_cfg: SceneEntityCfg,
++    contact_threshold: float = 5.0,
++    cos_slope_threshold: float = 0.95,
++) -> torch.Tensor:
++    """Penalty when a foot is in contact at a position where the SURFACE
++    NORMAL (inferred from the contact-force direction) deviates from world
++    vertical by more than the threshold.
++
++    The contact force in static contact is approximately along the surface
++    normal. So `force_z / |force|` ≈ cos(slope_angle). Below
++    `cos_slope_threshold` (default 0.95 ≈ 18.2°) the foot is "on a slope"
++    and we penalize it.
++
++    Privileged-at-train: uses contact sensor data (which the policy obs does
++    NOT see). Reward-shaping only — does not change deploy obs.
++
++    Returns: -count_of_feet_on_slope per env (E,).
++    """
++    sensor: ContactSensor = env.scene.sensors[sensor_cfg.name]
++    forces = sensor.data.net_forces_w[:, sensor_cfg.body_ids, :]   # (E, F, 3)
++    force_mag = torch.linalg.vector_norm(forces, dim=-1)            # (E, F)
++    in_contact = force_mag > contact_threshold                      # (E, F)
++    # cos(angle from vertical) = vertical component / magnitude
++    cos_angle = forces[..., 2] / force_mag.clamp(min=1e-6)          # (E, F)
++    on_slope = cos_angle < cos_slope_threshold                      # (E, F)
++    bad = in_contact & on_slope
++    return -bad.float().sum(dim=-1)
+diff --git a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__init__.py b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__init__.py
+index 0bc22a3..c5aa23e 100644
+--- a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__init__.py
++++ b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/__init__.py
+@@ -10,3 +10,36 @@ gym.register(
+         "rsl_rl_cfg_entry_point": f"unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg",
+     },
+ )
++
++gym.register(
++    id="Unitree-Go2-Velocity-Lidar",
++    entry_point="isaaclab.envs:ManagerBasedRLEnv",
++    disable_env_checker=True,
++    kwargs={
++        "env_cfg_entry_point": f"{__name__}.velocity_lidar_env_cfg:RobotLidarEnvCfg",
++        "play_env_cfg_entry_point": f"{__name__}.velocity_lidar_env_cfg:RobotLidarPlayEnvCfg",
++        "rsl_rl_cfg_entry_point": f"unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg",
++    },
++)
++
++gym.register(
++    id="Unitree-Go2-Velocity-Lidar-FlatPlay",
++    entry_point="isaaclab.envs:ManagerBasedRLEnv",
++    disable_env_checker=True,
++    kwargs={
++        "env_cfg_entry_point": f"{__name__}.velocity_lidar_env_cfg:RobotLidarFlatPlayEnvCfg",
++        "play_env_cfg_entry_point": f"{__name__}.velocity_lidar_env_cfg:RobotLidarFlatPlayEnvCfg",
++        "rsl_rl_cfg_entry_point": f"unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg",
++    },
++)
++
++gym.register(
++    id="Unitree-Go2-Footholds",
++    entry_point="isaaclab.envs:ManagerBasedRLEnv",
++    disable_env_checker=True,
++    kwargs={
++        "env_cfg_entry_point": f"{__name__}.velocity_footholds_env_cfg:RobotFootholdEnvCfg",
++        "play_env_cfg_entry_point": f"{__name__}.velocity_footholds_env_cfg:RobotFootholdPlayEnvCfg",
++        "rsl_rl_cfg_entry_point": f"unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg",
++    },
++)
+diff --git a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py
+index 7496d76..b5dbe96 100644
+--- a/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py
++++ b/source/unitree_rl_lab/unitree_rl_lab/tasks/locomotion/robots/go2/velocity_env_cfg.py
+@@ -20,6 +20,7 @@ from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
+ 
+ from unitree_rl_lab.assets.robots.unitree import UNITREE_GO2_CFG as ROBOT_CFG
+ from unitree_rl_lab.tasks.locomotion import mdp
++from unitree_rl_lab.terrains import PYRAMID_RIDGED_STAIRS_CFG, TRAPEZOIDAL_BUMPS_CFG
+ 
+ COBBLESTONE_ROAD_CFG = terrain_gen.TerrainGeneratorCfg(
+     size=(8.0, 8.0),
+@@ -73,14 +74,17 @@ class RobotSceneCfg(InteractiveSceneCfg):
+     terrain = TerrainImporterCfg(
+         prim_path="/World/ground",
+         terrain_type="generator",  # "plane", "generator"
+-        terrain_generator=COBBLESTONE_ROAD_CFG,  # None, ROUGH_TERRAINS_CFG
++        terrain_generator=PYRAMID_RIDGED_STAIRS_CFG,  # pyramidal stairs with raised ridge at front of each tread
+         max_init_terrain_level=1,
+         collision_group=-1,
+         physics_material=sim_utils.RigidBodyMaterialCfg(
+             friction_combine_mode="multiply",
+             restitution_combine_mode="multiply",
+-            static_friction=1.0,
+-            dynamic_friction=1.0,
++            # μ=0.75: with foot DR range (0.3, 1.2), effective spans 0.225–0.90
++            # (mean ~0.56). Below the 1.0 needed to grip a 45-deg slope, so
++            # slopes still slip, but enough μ for stable flat-tread contact.
++            static_friction=0.75,
++            dynamic_friction=0.75,
+         ),
+         visual_material=sim_utils.MdlFileCfg(
+             mdl_path=f"{ISAACLAB_NUCLEUS_DIR}/Materials/TilesMarbleSpiderWhiteBrickBondHoned/TilesMarbleSpiderWhiteBrickBondHoned.mdl",
+@@ -323,6 +327,33 @@ class RewardsCfg:
+             "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot"),
+         },
+     )
++    # Stage-2: foot-clearance reward (Gaussian on swing-foot height vs nominal,
++    # weighted by horizontal foot velocity tanh). Pattern copied from H1 cfg.
++    # Target 8 cm matches typical Go2 swing-foot height; std=0.05, tanh_mult=2.0.
++    # Bumped weight 1.0 → 5.0 to force foot lifting (counters the shuffle-gait
++    # local minimum observed on pyramid_train_20260509_010656).
++    feet_clearance = RewTerm(
++        func=mdp.foot_clearance_reward,
++        weight=5.0,
++        params={
++            "std": 0.05,
++            "tanh_mult": 2.0,
++            "target_height": 0.08,
++            "asset_cfg": SceneEntityCfg("robot", body_names=".*_foot"),
++        },
++    )
++    # Stage-2.5: foot-on-slope penalty (privileged-at-train).
++    # Fires when contact-force direction tilts > ~18° off vertical, indicating
++    # the foot is on a slope/peak. Target behavior: foot only on flat surfaces.
++    feet_on_slope = RewTerm(
++        func=mdp.feet_on_slope_penalty,
++        weight=-1.0,
++        params={
++            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot"),
++            "contact_threshold": 5.0,
++            "cos_slope_threshold": 0.95,   # ~18.2° tolerance
++        },
++    )
+     # feet_contact_forces = RewTerm(
+     #     func=mdp.contact_forces,
+     #     weight=-0.02,
+@@ -413,3 +444,10 @@ class RobotPlayEnvCfg(RobotEnvCfg):
+         self.scene.terrain.terrain_generator.num_rows = 2
+         self.scene.terrain.terrain_generator.num_cols = 1
+         self.commands.base_velocity.ranges = self.commands.base_velocity.limit_ranges
++        # Side-on view of the robot for video recording — eye on +Y, looking
++        # at the base. This makes the stair / bump profile visible.
++        self.viewer.origin_type = "asset_root"
++        self.viewer.asset_name = "robot"
++        self.viewer.env_index = 0
++        self.viewer.eye = (0.0, 4.0, 0.5)        # 4 m to the side, 0.5 m up
++        self.viewer.lookat = (0.0, 0.0, 0.3)     # at the robot base

@@ -1,0 +1,8 @@
+starting 24h foothold resume at Wed May  6 11:26:37 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-Footholds
+  resume from: 2026-05-05_21-37-06/model_62600.pt
+index, memory.used [MiB], memory.free [MiB]
+0, 1998 MiB, 13851 MiB
+1, 2 MiB, 15847 MiB

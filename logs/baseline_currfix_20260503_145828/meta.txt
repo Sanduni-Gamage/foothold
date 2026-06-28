@@ -1,0 +1,9 @@
+starting 24h resume run with curriculum fix at Sun May  3 02:58:28 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-Velocity
+  resume from: 2026-05-02_21-51-16/model_11400.pt
+  curriculum fix: lin_vel/ang_vel _cmd_levels global-step gate replaced with per-env rate limiter
+index, memory.used [MiB], memory.free [MiB]
+0, 9474 MiB, 6375 MiB
+1, 2 MiB, 15847 MiB

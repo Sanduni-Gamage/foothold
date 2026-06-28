@@ -1,0 +1,12 @@
+starting 30h surface (stage 3B, flat35) WARM-START training at Sun May 31 06:13:47 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-Surface
+  seed: 42
+  warm-start: warmstart_rough_25600/model_25600_surface.pt
+  active stage: STAGE_3B   weights: r_flat=+0.04, p_unsafe=-0.04
+  SLOPE_UNSAFE_DEG: 35.0  (widened from 15.0 — see HANDOFF §15.3)
+  obs dim: 244 (policy), 259 (critic); height scan 187 rays
+index, memory.used [MiB], memory.free [MiB]
+0, 5637 MiB, 10212 MiB
+1, 264 MiB, 15585 MiB

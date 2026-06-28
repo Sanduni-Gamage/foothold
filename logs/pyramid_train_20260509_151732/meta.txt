@@ -1,0 +1,9 @@
+starting 24h pyramid-ridged-stairs training at Sat May  9 03:17:32 PM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-Velocity (terrain = PYRAMID_RIDGED_STAIRS_CFG)
+  warm-start: 2026-05-07_23-28-00/model_40300.pt (trapezoidal walker)
+  geometry: 20 steps/side, μ=0.75, tread=0.20m, ridge=0.05m, tile 20x40m
+index, memory.used [MiB], memory.free [MiB]
+0, 1998 MiB, 13851 MiB
+1, 2 MiB, 15847 MiB

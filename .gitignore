@@ -1,0 +1,9 @@
+# Model checkpoints — 24.3 GB of weights, kept locally only.
+# Every training run writes model_*.pt every 100 iters; not mirrored to GitHub.
+*.pt
+
+# Redundant rsync backup of logs/rsl_rl (mostly .pt + duplicate event files).
+checkpoints_backup/
+
+# Build artifact created when bundling the thesis for transfer.
+thesis-bundle.zip

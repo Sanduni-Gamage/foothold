@@ -1,0 +1,514 @@
+Loading user config located at: '/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/data/Kit/Isaac-Sim/5.1/user.config.json'
+[Info] [carb] Logging to file: /home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/isaacsim/kit/logs/Kit/Isaac-Sim/5.1/kit_20260502_003710.log
+2026-05-01T12:37:10Z [87ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-05-01T12:37:10Z [258ms] [Warning] [omni.platforminfo.plugin] failed to open the default display.  Can't verify X Server version.
+2026-05-01T12:37:10Z [423ms] [Warning] [carb] Acquiring non optional plugin interface which is not listed as dependency: [omni::physx::IPhysxBenchmarks v1.0] (plugin: <default plugin>), by client: omni.physics.physx.plugin. Add it to CARB_PLUGIN_IMPL_DEPS() macro of a client.
+2026-05-01T12:37:10Z [430ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+2026-05-01T12:37:13Z [2,609ms] [Warning] [carb.cudainterop.plugin] CUDA_VISIBLE_DEVICES environment variable is set.
+2026-05-01T12:37:13Z [2,609ms] [Warning] [carb.cudainterop.plugin] Note CUDA device enumeration and Omniverse device enumeration are different.
+2026-05-01T12:37:13Z [2,609ms] [Warning] [carb.cudainterop.plugin] Setting CUDA_VISIBLE_DEVICES can lead to undesired behavior or crashes.
+2026-05-01T12:37:13Z [2,976ms] [Warning] [gpu.foundation.plugin] Skipping NVIDIA GPU due CUDA being in bad state: NVIDIA GeForce RTX 5060 Ti
+2026-05-01T12:37:13Z [2,976ms] [Warning] [gpu.foundation.plugin] Please restart your system if CUDA is known to work in your system.
+2026-05-01T12:37:13Z [2,977ms] [Warning] [gpu.foundation.plugin] Skipping NVIDIA GPU due CUDA being in bad state: NVIDIA GeForce RTX 5060 Ti
+2026-05-01T12:37:13Z [2,977ms] [Warning] [gpu.foundation.plugin] Please restart your system if CUDA is known to work in your system.
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 580.126.09    | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 5060 Ti       |        |     | 16557   MB | 10de      | 0          |
+|     |                                  |        |     |            | 2d04      | 2b74a472.. |
+|     |                                  |        |     |            | 1         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | NVIDIA GeForce RTX 5060 Ti       | Yes: 0 |     | 16557   MB | 10de      | 0          |
+|     |                                  |        |     |            | 2d04      | 7c6496a1.. |
+|     |                                  |        |     |            | 5         |            |
+|=============================================================================================|
+| OS: 24.04.3 LTS (Noble Numbat) ubuntu, Version: 24.04.3, Kernel: 6.14.0-37-generic
+| Processor: Intel(R) Core(TM) i5-14400F
+| Bare Metal Cores: 10 | Bare Metal Logical Cores: 20
+| Available Cores:  16 
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 64136 | Free Memory: 54107
+| Total Page/Swap (MB): 8191 | Free Page/Swap: 7806
+|---------------------------------------------------------------------------------------------|
+2026-05-01T12:37:13Z [3,236ms] [Warning] [gpu.foundation.plugin] PCIe link width current (4) and maximum (16) for device 1 don't match.
+2026-05-01T12:37:13Z [3,236ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-05-01T12:37:13Z [3,236ms] [Warning] [gpu.foundation.plugin] Detected IOMMU is enabled. Running CUDA peer-to-peer bandwidth and latency validation.
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-Go2-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-Go2-Velocity-Lidar already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-H1-Velocity already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Dance-102 already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/gymnasium/envs/registration.py:636: UserWarning: [33mWARN: Overriding environment Unitree-G1-29dof-Mimic-Gangnanm-Style already in registry.[0m
+  logger.warn(f"Overriding environment {new_spec.id} already in registry.")
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: /home/anyone/IsaacLab/apps/isaaclab.python.headless.kit
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.robots.go2.velocity_lidar_env_cfg:RobotLidarEnvCfg
+[INFO]: Parsing configuration from: unitree_rl_lab.tasks.locomotion.agents.rsl_rl_ppo_cfg:BasePPORunnerCfg
+[INFO] Logging experiment in directory: /home/anyone/projects/doga/logs/rsl_rl/unitree_go2_velocity_lidar
+Exact experiment name requested from command line: 2026-05-02_00-37-15
+
+[36m======================================================================================[0m
+[36m[1m[INFO][IsaacLab]: Logging to file: /tmp/isaaclab/logs/isaaclab_2026-05-02_00-37-15.log[0m
+[36m======================================================================================[0m
+
+[33m00:37:15 [simulation_context.py] WARNING: The `enable_external_forces_every_iteration` parameter in the PhysxCfg is set to False. If you are experiencing noisy velocities, consider enabling this flag. You may need to slightly increase the number of velocity iterations (setting it to 1 or 2 rather than 0), together with this flag, to improve the accuracy of velocity updates.[0m
+[INFO]: Base environment:
+	Environment device    : cuda:0
+	Environment seed      : 42
+	Physics step-size     : 0.005
+	Rendering step-size   : 0.02
+	Environment step-size : 0.02
+[INFO] Generating terrains based on curriculum took : 1.418714 seconds
+[INFO]: Time taken for scene creation : 5.405479 seconds
+[INFO]: Scene manager:  <class InteractiveScene>
+	Number of environments: 4096
+	Environment spacing   : 2.5
+	Source prim name      : /World/envs/env_0
+	Global prim paths     : ['/World/ground']
+	Replicate physics     : True
+[INFO]: Starting the simulation. This may take a few seconds. Please wait...
+[INFO]: Time taken for simulation start : 4.765181 seconds
+[INFO] Command Manager:  <CommandManager> contains 1 active terms.
++------------------------------------------------+
+|              Active Command Terms              |
++-------+---------------+------------------------+
+| Index | Name          |          Type          |
++-------+---------------+------------------------+
+|   0   | base_velocity | UniformVelocityCommand |
++-------+---------------+------------------------+
+
+[INFO] Event Manager:  <EventManager> contains 3 active terms.
++--------------------------------------+
+| Active Event Terms in Mode: 'startup' |
++----------+---------------------------+
+|  Index   | Name                      |
++----------+---------------------------+
+|    0     | physics_material          |
+|    1     | add_base_mass             |
++----------+---------------------------+
++---------------------------------------+
+|  Active Event Terms in Mode: 'reset'  |
++--------+------------------------------+
+| Index  | Name                         |
++--------+------------------------------+
+|   0    | base_external_force_torque   |
+|   1    | reset_base                   |
+|   2    | reset_robot_joints           |
++--------+------------------------------+
++----------------------------------------------+
+|    Active Event Terms in Mode: 'interval'    |
++-------+------------+-------------------------+
+| Index | Name       | Interval time range (s) |
++-------+------------+-------------------------+
+|   0   | push_robot |       (5.0, 10.0)       |
++-------+------------+-------------------------+
+
+[INFO] Recorder Manager:  <RecorderManager> contains 0 active terms.
++---------------------+
+| Active Recorder Terms |
++-----------+---------+
+|   Index   | Name    |
++-----------+---------+
++-----------+---------+
+
+[INFO] Action Manager:  <ActionManager> contains 1 active terms.
++-----------------------------------------+
+|     Active Action Terms (shape: 12)     |
++-------+---------------------+-----------+
+| Index | Name                | Dimension |
++-------+---------------------+-----------+
+|   0   | JointPositionAction |        12 |
++-------+---------------------+-----------+
+
+[33m00:37:26 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/rsl_rl/utils/utils.py:245: UserWarning: The observation configuration dictionary 'obs_groups' must contain the 'policy' key. As an observation group with the name 'policy' was found, this is assumed to be the observation set. Consider adding the 'policy' key to the 'obs_groups' dictionary for clarity. This behavior will be removed in a future version.
+  warnings.warn(
+/home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/rsl_rl/utils/utils.py:283: UserWarning: The observation configuration dictionary 'obs_groups' must contain the 'critic' key. As an observation group with the name 'critic' was found, this is assumed to be the observation set. Consider adding the 'critic' key to the 'obs_groups' dictionary for clarity. This behavior will be removed in a future version.
+  warnings.warn(
+[INFO] Observation Manager: <ObservationManager> contains 2 groups.
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'policy' (shape: (2349,)) |
++-----------+--------------------------------+---------------+
+|   Index   | Name                           |     Shape     |
++-----------+--------------------------------+---------------+
+|     0     | base_ang_vel                   |      (3,)     |
+|     1     | projected_gravity              |      (3,)     |
+|     2     | velocity_commands              |      (3,)     |
+|     3     | joint_pos_rel                  |     (12,)     |
+|     4     | joint_vel_rel                  |     (12,)     |
+|     5     | last_action                    |     (12,)     |
+|     6     | lidar                          |    (2304,)    |
++-----------+--------------------------------+---------------+
++------------------------------------------------------------+
+| Active Observation Terms in Group: 'critic' (shape: (2364,)) |
++-----------+--------------------------------+---------------+
+|   Index   | Name                           |     Shape     |
++-----------+--------------------------------+---------------+
+|     0     | base_lin_vel                   |      (3,)     |
+|     1     | base_ang_vel                   |      (3,)     |
+|     2     | projected_gravity              |      (3,)     |
+|     3     | velocity_commands              |      (3,)     |
+|     4     | joint_pos_rel                  |     (12,)     |
+|     5     | joint_vel_rel                  |     (12,)     |
+|     6     | joint_effort                   |     (12,)     |
+|     7     | last_action                    |     (12,)     |
+|     8     | lidar_clean                    |    (2304,)    |
++-----------+--------------------------------+---------------+
+
+[INFO] Termination Manager:  <TerminationManager> contains 3 active terms.
++------------------------------------+
+|      Active Termination Terms      |
++-------+-----------------+----------+
+| Index | Name            | Time Out |
++-------+-----------------+----------+
+|   0   | time_out        |   True   |
+|   1   | base_contact    |  False   |
+|   2   | bad_orientation |  False   |
++-------+-----------------+----------+
+
+[INFO] Reward Manager:  <RewardManager> contains 16 active terms.
++------------------------------------------+
+|           Active Reward Terms            |
++-------+-----------------------+----------+
+| Index | Name                  |   Weight |
++-------+-----------------------+----------+
+|   0   | track_lin_vel_xy      |      1.5 |
+|   1   | track_ang_vel_z       |     0.75 |
+|   2   | base_linear_velocity  |     -2.0 |
+|   3   | base_angular_velocity |    -0.05 |
+|   4   | joint_vel             |   -0.001 |
+|   5   | joint_acc             | -2.5e-07 |
+|   6   | joint_torques         |  -0.0002 |
+|   7   | action_rate           |     -0.1 |
+|   8   | dof_pos_limits        |    -10.0 |
+|   9   | energy                |   -2e-05 |
+|   10  | flat_orientation_l2   |     -2.5 |
+|   11  | joint_pos             |     -0.7 |
+|   12  | feet_air_time         |      0.1 |
+|   13  | air_time_variance     |     -1.0 |
+|   14  | feet_slide            |     -0.1 |
+|   15  | undesired_contacts    |       -1 |
++-------+-----------------------+----------+
+
+[INFO] Curriculum Manager:  <CurriculumManager> contains 2 active terms.
++----------------------------+
+|  Active Curriculum Terms   |
++-------+--------------------+
+| Index | Name               |
++-------+--------------------+
+|   0   | terrain_levels     |
+|   1   | lin_vel_cmd_levels |
++-------+--------------------+
+
+[INFO]: Completed setting up the environment...
+--------------------------------------------------------------------------------
+Resolved observation sets: 
+	 policy :  ['policy']
+	 critic :  ['critic']
+--------------------------------------------------------------------------------
+Actor MLP: MLP(
+  (0): Linear(in_features=2349, out_features=512, bias=True)
+  (1): ELU(alpha=1.0)
+  (2): Linear(in_features=512, out_features=256, bias=True)
+  (3): ELU(alpha=1.0)
+  (4): Linear(in_features=256, out_features=128, bias=True)
+  (5): ELU(alpha=1.0)
+  (6): Linear(in_features=128, out_features=12, bias=True)
+)
+Critic MLP: MLP(
+  (0): Linear(in_features=2364, out_features=512, bias=True)
+  (1): ELU(alpha=1.0)
+  (2): Linear(in_features=512, out_features=256, bias=True)
+  (3): ELU(alpha=1.0)
+  (4): Linear(in_features=256, out_features=128, bias=True)
+  (5): ELU(alpha=1.0)
+  (6): Linear(in_features=128, out_features=1, bias=True)
+)
+[33m00:37:31 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+################################################################################
+                     [1m Learning iteration 0/100000 [0m                      
+
+                       Computation: 10909 steps/s (collection: 8.457s, learning 0.554s)
+             Mean action noise std: 1.00
+          Mean value_function loss: 8.5536
+               Mean surrogate loss: 0.3178
+                 Mean entropy loss: 17.0096
+                       Mean reward: -1.37
+               Mean episode length: 14.83
+   Episode_Reward/track_lin_vel_xy: 0.0164
+    Episode_Reward/track_ang_vel_z: 0.0036
+Episode_Reward/base_linear_velocity: -0.0152
+Episode_Reward/base_angular_velocity: -0.0077
+          Episode_Reward/joint_vel: -0.0047
+          Episode_Reward/joint_acc: -0.0043
+      Episode_Reward/joint_torques: -0.0017
+        Episode_Reward/action_rate: -0.0291
+     Episode_Reward/dof_pos_limits: -0.0001
+             Episode_Reward/energy: -0.0001
+Episode_Reward/flat_orientation_l2: -0.0008
+          Episode_Reward/joint_pos: -0.0111
+      Episode_Reward/feet_air_time: -0.0000
+  Episode_Reward/air_time_variance: -0.0000
+         Episode_Reward/feet_slide: -0.0012
+ Episode_Reward/undesired_contacts: -0.0005
+         Curriculum/terrain_levels: 1.4946
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0035
+Metrics/base_velocity/error_vel_yaw: 0.0148
+      Episode_Termination/time_out: 0.0122
+  Episode_Termination/base_contact: 0.0001
+Episode_Termination/bad_orientation: 0.0001
+--------------------------------------------------------------------------------
+                   Total timesteps: 98304
+                    Iteration time: 9.01s
+                      Time elapsed: 00:00:09
+                               ETA: 10:18:42
+
+Could not find git repository in /home/anyone/miniforge3/envs/env_isaaclab/lib/python3.11/site-packages/rsl_rl/__init__.py. Skipping.
+Storing git diff for 'unitree_rl_lab' in: /home/anyone/projects/doga/logs/rsl_rl/unitree_go2_velocity_lidar/2026-05-02_00-37-15/git/unitree_rl_lab.diff
+[33m00:37:37 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+[33m00:37:42 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+################################################################################
+                     [1m Learning iteration 1/100000 [0m                      
+
+                       Computation: 13254 steps/s (collection: 6.972s, learning 0.444s)
+             Mean action noise std: 1.00
+          Mean value_function loss: 3.4681
+               Mean surrogate loss: 0.0019
+                 Mean entropy loss: 17.0094
+                       Mean reward: -4.86
+               Mean episode length: 16.54
+   Episode_Reward/track_lin_vel_xy: 0.0239
+    Episode_Reward/track_ang_vel_z: 0.0050
+Episode_Reward/base_linear_velocity: -0.0187
+Episode_Reward/base_angular_velocity: -0.0251
+          Episode_Reward/joint_vel: -0.0131
+          Episode_Reward/joint_acc: -0.0179
+      Episode_Reward/joint_torques: -0.0062
+        Episode_Reward/action_rate: -0.1048
+     Episode_Reward/dof_pos_limits: -0.0346
+             Episode_Reward/energy: -0.0002
+Episode_Reward/flat_orientation_l2: -0.0080
+          Episode_Reward/joint_pos: -0.0318
+      Episode_Reward/feet_air_time: -0.0001
+  Episode_Reward/air_time_variance: -0.0002
+         Episode_Reward/feet_slide: -0.0036
+ Episode_Reward/undesired_contacts: -0.0027
+         Curriculum/terrain_levels: 0.9943
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0118
+Metrics/base_velocity/error_vel_yaw: 0.0424
+      Episode_Termination/time_out: 0.0192
+  Episode_Termination/base_contact: 0.0001
+Episode_Termination/bad_orientation: 0.5622
+--------------------------------------------------------------------------------
+                   Total timesteps: 196608
+                    Iteration time: 7.42s
+                      Time elapsed: 00:00:16
+                               ETA: 12:09:34
+
+[33m00:37:47 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+[33m00:37:53 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+################################################################################
+                     [1m Learning iteration 2/100000 [0m                      
+
+                       Computation: 10273 steps/s (collection: 9.127s, learning 0.442s)
+             Mean action noise std: 1.00
+          Mean value_function loss: 4.7052
+               Mean surrogate loss: 0.0134
+                 Mean entropy loss: 17.0104
+                       Mean reward: -4.86
+               Mean episode length: 14.57
+   Episode_Reward/track_lin_vel_xy: 0.0131
+    Episode_Reward/track_ang_vel_z: 0.0022
+Episode_Reward/base_linear_velocity: -0.0104
+Episode_Reward/base_angular_velocity: -0.0160
+          Episode_Reward/joint_vel: -0.0106
+          Episode_Reward/joint_acc: -0.0204
+      Episode_Reward/joint_torques: -0.0059
+        Episode_Reward/action_rate: -0.0884
+     Episode_Reward/dof_pos_limits: -0.0591
+             Episode_Reward/energy: -0.0001
+Episode_Reward/flat_orientation_l2: -0.0095
+          Episode_Reward/joint_pos: -0.0335
+      Episode_Reward/feet_air_time: -0.0000
+  Episode_Reward/air_time_variance: -0.0001
+         Episode_Reward/feet_slide: -0.0014
+ Episode_Reward/undesired_contacts: -0.0049
+         Curriculum/terrain_levels: 0.7226
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0107
+Metrics/base_velocity/error_vel_yaw: 0.0393
+      Episode_Termination/time_out: 0.0165
+  Episode_Termination/base_contact: 0.0000
+Episode_Termination/bad_orientation: 0.7813
+--------------------------------------------------------------------------------
+                   Total timesteps: 294912
+                    Iteration time: 9.57s
+                      Time elapsed: 00:00:25
+                               ETA: 00:42:13
+
+[33m00:37:58 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+[33m00:38:03 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+################################################################################
+                     [1m Learning iteration 3/100000 [0m                      
+
+                       Computation: 9710 steps/s (collection: 9.687s, learning 0.437s)
+             Mean action noise std: 1.00
+          Mean value_function loss: 4.7129
+               Mean surrogate loss: 0.0066
+                 Mean entropy loss: 17.0110
+                       Mean reward: -7.25
+               Mean episode length: 24.74
+   Episode_Reward/track_lin_vel_xy: 0.0242
+    Episode_Reward/track_ang_vel_z: 0.0051
+Episode_Reward/base_linear_velocity: -0.0132
+Episode_Reward/base_angular_velocity: -0.0179
+          Episode_Reward/joint_vel: -0.0119
+          Episode_Reward/joint_acc: -0.0222
+      Episode_Reward/joint_torques: -0.0097
+        Episode_Reward/action_rate: -0.1097
+     Episode_Reward/dof_pos_limits: -0.1015
+             Episode_Reward/energy: -0.0002
+Episode_Reward/flat_orientation_l2: -0.0157
+          Episode_Reward/joint_pos: -0.0622
+      Episode_Reward/feet_air_time: -0.0000
+  Episode_Reward/air_time_variance: -0.0004
+         Episode_Reward/feet_slide: -0.0023
+ Episode_Reward/undesired_contacts: -0.0129
+         Curriculum/terrain_levels: 0.7006
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0142
+Metrics/base_velocity/error_vel_yaw: 0.0499
+      Episode_Termination/time_out: 0.0194
+  Episode_Termination/base_contact: 0.0000
+Episode_Termination/bad_orientation: 0.7966
+--------------------------------------------------------------------------------
+                   Total timesteps: 393216
+                    Iteration time: 10.12s
+                      Time elapsed: 00:00:36
+                               ETA: 10:49:43
+
+[33m00:38:08 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+[33m00:38:14 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+################################################################################
+                     [1m Learning iteration 4/100000 [0m                      
+
+                       Computation: 9533 steps/s (collection: 9.869s, learning 0.442s)
+             Mean action noise std: 1.00
+          Mean value_function loss: 4.8013
+               Mean surrogate loss: 0.0189
+                 Mean entropy loss: 17.0115
+                       Mean reward: -11.65
+               Mean episode length: 42.57
+   Episode_Reward/track_lin_vel_xy: 0.0459
+    Episode_Reward/track_ang_vel_z: 0.0092
+Episode_Reward/base_linear_velocity: -0.0164
+Episode_Reward/base_angular_velocity: -0.0201
+          Episode_Reward/joint_vel: -0.0141
+          Episode_Reward/joint_acc: -0.0263
+      Episode_Reward/joint_torques: -0.0171
+        Episode_Reward/action_rate: -0.1473
+     Episode_Reward/dof_pos_limits: -0.1835
+             Episode_Reward/energy: -0.0002
+Episode_Reward/flat_orientation_l2: -0.0264
+          Episode_Reward/joint_pos: -0.1209
+      Episode_Reward/feet_air_time: -0.0001
+  Episode_Reward/air_time_variance: -0.0008
+         Episode_Reward/feet_slide: -0.0039
+ Episode_Reward/undesired_contacts: -0.0286
+         Curriculum/terrain_levels: 0.6907
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0195
+Metrics/base_velocity/error_vel_yaw: 0.0734
+      Episode_Termination/time_out: 0.0225
+  Episode_Termination/base_contact: 0.0000
+Episode_Termination/bad_orientation: 0.8016
+--------------------------------------------------------------------------------
+                   Total timesteps: 491520
+                    Iteration time: 10.31s
+                      Time elapsed: 00:00:46
+                               ETA: 17:56:34
+
+[33m00:38:19 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+################################################################################
+                     [1m Learning iteration 5/100000 [0m                      
+
+                       Computation: 9577 steps/s (collection: 9.834s, learning 0.430s)
+             Mean action noise std: 1.00
+          Mean value_function loss: 4.3680
+               Mean surrogate loss: 0.0307
+                 Mean entropy loss: 17.0120
+                       Mean reward: -14.64
+               Mean episode length: 58.83
+   Episode_Reward/track_lin_vel_xy: 0.0727
+    Episode_Reward/track_ang_vel_z: 0.0150
+Episode_Reward/base_linear_velocity: -0.0173
+Episode_Reward/base_angular_velocity: -0.0217
+          Episode_Reward/joint_vel: -0.0162
+          Episode_Reward/joint_acc: -0.0290
+      Episode_Reward/joint_torques: -0.0266
+        Episode_Reward/action_rate: -0.1951
+     Episode_Reward/dof_pos_limits: -0.2916
+             Episode_Reward/energy: -0.0002
+Episode_Reward/flat_orientation_l2: -0.0394
+          Episode_Reward/joint_pos: -0.1381
+      Episode_Reward/feet_air_time: -0.0001
+  Episode_Reward/air_time_variance: -0.0014
+         Episode_Reward/feet_slide: -0.0050
+ Episode_Reward/undesired_contacts: -0.0479
+         Curriculum/terrain_levels: 0.6829
+     Curriculum/lin_vel_cmd_levels: 0.1000
+Metrics/base_velocity/error_vel_xy: 0.0258
+Metrics/base_velocity/error_vel_yaw: 0.1013
+      Episode_Termination/time_out: 0.0255
+  Episode_Termination/base_contact: 0.0000
+Episode_Termination/bad_orientation: 0.8057
+--------------------------------------------------------------------------------
+                   Total timesteps: 589824
+                    Iteration time: 10.26s
+                      Time elapsed: 00:00:56
+                               ETA: 22:28:05
+
+[33m00:38:25 [ray_caster.py] WARNING: Raycaster attribute 'attach_yaw_only' property will be deprecated in a future release. Please use the parameter 'ray_alignment' instead. Setting ray_alignment to 'base'.[0m
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 384.76 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   2.25 
+
+   CPU     0 
+     0   2.13 
+2026-05-01T12:37:13Z [3,268ms] [Warning] [omni.kvdb.plugin] Disabling key-value database because another kit process is locking it
+2026-05-01T12:37:27Z [17,250ms] [Warning] [omni.physx.fabric.plugin] FabricManager::initializePointInstancer mismatched prototypes on point instancer: /Visuals/Command/velocity_current.
+2026-05-01T12:37:27Z [17,250ms] [Warning] [omni.physx.fabric.plugin] FabricManager::initializePointInstancer mismatched prototypes on point instancer: /Visuals/Command/velocity_goal.
+2026-05-01T12:38:30Z [79,918ms] [Error] [carb] 
+
+../../../source/plugins/carb.tasking/Mutex.cpp(103): void carb::tasking::Mutex::lock()(): Assertion (m_recursive) failed: Recursion not allowed
+
+Assertion Failed!
+The following assertion condition failed in the process 799037:
+	'm_recursive'
+
+at the location:
+	'../../../source/plugins/carb.tasking/Mutex.cpp'
+	on line 103
+	 in void carb::tasking::Mutex::lock()()
+
+with the message:
+	"Recursion not allowed"
+
+Press ABORT to exit.
+Press RETRY to debug (attach a debugger first).
+Press IGNORE to attempt to continue.

@@ -1,0 +1,7 @@
+starting 12h run at Sat May  2 12:33:15 AM NZST 2026
+  GPU: 1
+  num_envs: 4096
+  task: Unitree-Go2-Velocity-Lidar
+index, memory.used [MiB], memory.free [MiB]
+0, 9496 MiB, 6353 MiB
+1, 429 MiB, 15420 MiB
