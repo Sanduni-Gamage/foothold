@@ -7,3 +7,6 @@ checkpoints_backup/
 
 # Build artifact created when bundling the thesis for transfer.
 thesis-bundle.zip
+
+# Transient Isaac Sim capture logs (verbose, regenerable).
+figures/sim_capture/*.log
